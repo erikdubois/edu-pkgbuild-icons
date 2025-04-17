@@ -1,0 +1,16 @@
+pkgbase = sardi-flat-mixing-icons-git
+	pkgdesc = Based on Sardi Flat you can use the modularity to combine elements and create a new icon theme.
+	pkgver = 20.3
+	pkgrel = 6
+	arch = any
+	license = Attribution-NonCommercial-ShareAlike 4.0 International Public License
+	makedepends = git
+	provides = sardi-flat-mixing-icons-git
+	conflicts = sardi-flat-mixing-icons-git
+	options = !strip
+	options = !emptydirs
+	source = sardi-flat-mixing-icons::git+https://github.com/erikdubois/Sardi-Flat-Mixing
+	sha256sums = SKIP
+
+pkgname = sardi-flat-mixing-icons-git
+

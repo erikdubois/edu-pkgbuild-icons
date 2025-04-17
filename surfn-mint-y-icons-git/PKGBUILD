@@ -1,0 +1,41 @@
+# Maintainer: erik dubois <erik.dubois@gmail.com>
+#flavor=Ghost-Flexible
+#name=ghost-flexible
+#indexname="Ghost Flexible"
+pkgname=surfn-mint-y-icons-git
+_pkgname=surfn-mint-y-icons
+_destname="/usr/share/icons/"
+pkgver=25.04
+pkgrel=01
+pkgdesc="New icons from LinuxMint 18 inspired by the Moka icon set with Surfn as main icon set"
+arch=('any')
+url="https://github.com/arcolinux/arcolinux-mint-y-icons"
+license=('GPL3')
+depends=('surfn-icons-git')
+makedepends=()
+optdepends=()
+conflicts=("${_pkgname}")
+provides=("${_pkgname}")
+source=("${_pkgname}"::git+https://github.com/arcolinux/arcolinux-mint-y-icons)
+sha256sums=('SKIP')
+package() {
+  cd ${srcdir}/${_pkgname}/arcolinux-mint-y-icons/
+  find .  -name "index.theme" -type f -exec sed -i "s/Name=ArcoLinux-Mint-Y-/Name=Surfn Mint Y /g" {} \;
+  find .  -name "index.theme" -type f -exec sed -i "s/Inherits=Adwaita,gnome,hicolor/Inherits=Surfn,Adwaita,gnome,hicolor/g" {} \;
+  find .  -name "index.theme" -type f -exec sed -i "s/Hidden=true/Hidden=false/g" {} \;
+
+  mv ArcoLinux-Mint-Y-Aqua Surfn-Mint-Y-Aqua
+  mv ArcoLinux-Mint-Y-Blue Surfn-Mint-Y-Blue
+  mv ArcoLinux-Mint-Y-Brown Surfn-Mint-Y-Brown
+  mv ArcoLinux-Mint-Y-Grey Surfn-Mint-Y-Grey
+  mv ArcoLinux-Mint-Y-Orange Surfn-Mint-Y-Orange
+  mv ArcoLinux-Mint-Y-Pink Surfn-Mint-Y-Pink
+  mv ArcoLinux-Mint-Y-Purple Surfn-Mint-Y-Purple
+  mv ArcoLinux-Mint-Y-Red Surfn-Mint-Y-Red
+  mv ArcoLinux-Mint-Y-Sand Surfn-Mint-Y-Sand
+  mv ArcoLinux-Mint-Y-Teal Surfn-Mint-Y-Teal
+  mv ArcoLinux-Mint-Y-Yellow Surfn-Mint-Y-Yellow
+  cd ${srcdir}/${_pkgname}/arcolinux-mint-y-icons/
+  install -dm 755 ${pkgdir}${_destname}
+  cp -aR * ${pkgdir}${_destname}
+}

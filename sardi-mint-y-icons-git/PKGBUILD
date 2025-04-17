@@ -1,0 +1,41 @@
+# Maintainer: erik dubois <erik.dubois@gmail.com>
+#flavor=Ghost-Flexible
+#name=ghost-flexible
+#indexname="Ghost Flexible"
+pkgname=sardi-mint-y-icons-git
+_pkgname=sardi-mint-y-icons
+_destname="/usr/share/icons/"
+pkgver=25.04
+pkgrel=01
+pkgdesc="New icons from LinuxMint 18 inspired by the Moka icon set with Sardi as main icon set"
+arch=('any')
+url="https://github.com/arcolinux/arcolinux-mint-y-icons"
+license=('GPL3')
+depends=('sardi-icons')
+makedepends=()
+optdepends=()
+conflicts=("${_pkgname}")
+provides=("${_pkgname}")
+source=("${_pkgname}"::git+https://github.com/arcolinux/arcolinux-mint-y-icons)
+sha256sums=('SKIP')
+package() {
+  cd ${srcdir}/${_pkgname}/arcolinux-mint-y-icons/
+  find .  -name "index.theme" -type f -exec sed -i "s/Name=ArcoLinux-Mint-Y-/Name=Sardi Mint Y /g" {} \;
+  find .  -name "index.theme" -type f -exec sed -i "s/Inherits=Adwaita,gnome,hicolor/Inherits=Sardi,Surfn,Adwaita,gnome,hicolor/g" {} \;
+  find .  -name "index.theme" -type f -exec sed -i "s/Hidden=true/Hidden=false/g" {} \;
+
+  mv ArcoLinux-Mint-Y-Aqua Sardi-Mint-Y-Aqua
+  mv ArcoLinux-Mint-Y-Blue Sardi-Mint-Y-Blue
+  mv ArcoLinux-Mint-Y-Brown Sardi-Mint-Y-Brown
+  mv ArcoLinux-Mint-Y-Grey Sardi-Mint-Y-Grey
+  mv ArcoLinux-Mint-Y-Orange Sardi-Mint-Y-Orange
+  mv ArcoLinux-Mint-Y-Pink Sardi-Mint-Y-Pink
+  mv ArcoLinux-Mint-Y-Purple Sardi-Mint-Y-Purple
+  mv ArcoLinux-Mint-Y-Red Sardi-Mint-Y-Red
+  mv ArcoLinux-Mint-Y-Sand Sardi-Mint-Y-Sand
+  mv ArcoLinux-Mint-Y-Teal Sardi-Mint-Y-Teal
+  mv ArcoLinux-Mint-Y-Yellow Sardi-Mint-Y-Yellow
+  cd ${srcdir}/${_pkgname}/arcolinux-mint-y-icons/
+  install -dm 755 ${pkgdir}${_destname}
+  cp -aR * ${pkgdir}${_destname}
+}
