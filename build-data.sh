@@ -33,7 +33,7 @@ PKGBUILD="PKGBUILD"
 pkgname=$(grep -E '^pkgname=' "$PKGBUILD" | cut -d= -f2)
 
 # Only proceed if pkgname starts with 'edu-'
-if [[ "$pkgname" = edu-* ]]; then
+if [[ "$pkgname" = surfn-icons-git ]]; then
     echo "Skipping: pkgname '$pkgname' does not start with 'edu-'"
 else
 
