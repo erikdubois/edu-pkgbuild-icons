@@ -2,7 +2,7 @@
 pkgname=neo-candy-icons-git
 _pkgname=neo-candy-icons
 pkgver=25.04
-pkgrel=06
+pkgrel=07
 _destname1="/usr/share/icons/"
 #_destname2="/usr/share/plasma/"
 pkgdesc="Neo candy icons"
