@@ -1,8 +1,8 @@
 # Maintainer: Erik Dubois <erik.dubois@gmail.com>
 pkgname=surfn-plasma-flow-git
 _pkgname=surfn-plasma-flow
-pkgver=25.04
-pkgrel=02
+pkgver=26.03
+pkgrel=01
 _destname1="/usr/share/icons/"
 _destname2="/usr/share/plasma/"
 pkgdesc="Surfn icons combined with dark blue plasma folders"
