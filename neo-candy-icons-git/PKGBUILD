@@ -1,7 +1,7 @@
 # Maintainer: John Patrick <john.patrick@gmail.com>
 pkgname=neo-candy-icons-git
-pkgver=26.03
-pkgrel=06
+pkgver=26.04
+pkgrel=01
 pkgdesc="Neo Candy icon theme (Git version)"
 arch=('any')
 url="https://github.com/erikdubois/neo-candy-icons"
