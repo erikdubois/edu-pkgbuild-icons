@@ -94,12 +94,12 @@ copy_script() {
         exit 1
     fi
 
-    log_section "Copying ${filename} to all package dirs that have one"
+    log_section "Copying ${filename} to all package dirs that have a PKGBUILD"
 
     while IFS= read -r -d '' dir; do
         local dirname
         dirname="$(basename "${dir}")"
-        [[ -f "${dir}/${filename}" ]] || continue
+        [[ -f "${dir}/PKGBUILD" ]] || continue
         cp "${source}" "${dir}/${filename}"
         log_info "Copied ${filename} → ${dirname}"
     done < <(find "${SCRIPT_DIR}" -mindepth 1 -maxdepth 1 -type d -not -name '.*' -print0 | sort -z)
