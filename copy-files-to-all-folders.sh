@@ -85,42 +85,39 @@ trap 'on_error "$LINENO" "$BASH_COMMAND"' ERR
 #####################################################################
 # Functions
 #####################################################################
-build_all_packages() {
-    local dirs total count
+copy_script() {
+    local filename="$1"
+    local source="${SCRIPT_DIR}/${filename}"
 
-    mapfile -t dirs < <(find "${SCRIPT_DIR}" -maxdepth 1 -mindepth 1 -type d -not -name ".*" | sort)
-    total="${#dirs[@]}"
-    count=0
+    if [[ ! -f "${source}" ]]; then
+        log_error "${filename} not found in ${SCRIPT_DIR}"
+        exit 1
+    fi
 
-    log_section "Building ${total} packages"
+    log_section "Copying ${filename} to all package dirs that have one"
 
-    for dir in "${dirs[@]}"; do
-        count=$((count + 1))
-        local name
-        name="$(basename "${dir}")"
-
-        log_info "Package ${count} of ${total}: ${name}"
-
-        if compgen -G "${dir}/build*" > /dev/null 2>&1; then
-            (cd "${dir}" && sh ./build*)
-        else
-            log_warn "No build script found for ${name} — skipping"
-            echo "Error: ${name} has no build script" | tee -a /tmp/failed
-        fi
-    done
-}
-
-publish_repo() {
-    log_section "Publishing nemesis_repo"
-    bash /home/erik/EDU/nemesis_repo/up.sh
+    while IFS= read -r -d '' dir; do
+        local dirname
+        dirname="$(basename "${dir}")"
+        [[ -f "${dir}/${filename}" ]] || continue
+        cp "${source}" "${dir}/${filename}"
+        log_info "Copied ${filename} → ${dirname}"
+    done < <(find "${SCRIPT_DIR}" -mindepth 1 -maxdepth 1 -type d -not -name '.*' -print0 | sort -z)
 }
 
 #####################################################################
 # Main
 #####################################################################
 main() {
-    build_all_packages
-    publish_repo
+    local repo_name
+    repo_name="$(basename "${SCRIPT_DIR}")"
+
+    if [[ "${repo_name}" == *pkgbuild* ]]; then
+        copy_script "build.sh"
+    else
+        copy_script "setup.sh"
+        copy_script "up.sh"
+    fi
 
     log_success "$(basename "$0") done"
 }
